@@ -22,6 +22,8 @@ async function bootstrap() {
   // CORS 설정 (필요한 경우)
   app.enableCors();
 
-  await app.listen(3000);
+  // 환경변수 PORT 사용, 기본값 3000
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
 }
 bootstrap();
