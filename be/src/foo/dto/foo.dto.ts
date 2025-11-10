@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer';
-import { IsNumber, IsString, IsOptional, ValidateNested, IsArray } from 'class-validator';
+import {
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from "class-validator";
 
 export class BboxQueryDto {
     @IsNumber()
@@ -21,63 +27,63 @@ export class BboxQueryDto {
 
 // 필지 정보 응답 DTO
 export class FarmMapResponseDto {
-    id: number;
-    pnu: string;
-    clsfNm?: string;
-    stdgAddr?: string;
-    area?: number;
-    geom: string; // GeoJSON 형태로 반환
-    hasFoo: boolean; // FOO 데이터 존재 여부
+  id: string;
+  pnu: string;
+  clsfNm?: string;
+  stdgAddr?: string;
+  area?: number;
+  geom: string; // GeoJSON 형태로 반환
+  hasFoo: boolean; // FOO 데이터 존재 여부
 }
 
 export class CreateFooCropDto {
-    @IsString()
-    cropCode: string;
+  @IsString()
+  cropCode: string;
 }
 
 export class CreateFooDto {
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => CreateFooCropDto)
-    crops: CreateFooCropDto[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateFooCropDto)
+  crops: CreateFooCropDto[];
 }
 
 export class UpdateFooDto {
-    @IsOptional()
-    @IsArray()
-    @ValidateNested({ each: true })
-    @Type(() => CreateFooCropDto)
-    crops?: CreateFooCropDto[];
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateFooCropDto)
+  crops?: CreateFooCropDto[];
 }
 
 export class FarmMapDto {
-    id: number;
-    uid?: string;
-    clsfNm?: string;
-    clsfCd?: string;
-    stdgCd?: string;
-    stdgAddr?: string;
-    pnu: string;
-    ldcgCd?: string;
-    area?: number;
-    sourceNm?: string;
-    layer?: string;
+  id: string;
+  uid?: string;
+  clsfNm?: string;
+  clsfCd?: string;
+  stdgCd?: string;
+  stdgAddr?: string;
+  pnu: string;
+  ldcgCd?: string;
+  area?: number;
+  sourceNm?: string;
+  layer?: string;
 }
 
 export class FooResponseDto {
+  id: number;
+  farmMapId: string;
+  pnu: string;
+  year: number;
+  createdAt: Date;
+  deletedAt?: Date;
+  farmMap?: FarmMapDto;
+  photos: {
     id: number;
-    farmMapId: number;
-    pnu: string;
-    year: number;
-    createdAt: Date;
-    deletedAt?: Date;
-    farmMap?: FarmMapDto;
-    photos: {
-        id: number;
-        filePath: string;
-    }[];
-    crops: {
-        id: number;
-        cropCode: string;
-    }[];
+    filePath: string;
+  }[];
+  crops: {
+    id: number;
+    cropCode: string;
+  }[];
 }

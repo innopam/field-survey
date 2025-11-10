@@ -1,18 +1,25 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Foo } from './foo.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Foo } from "./foo.entity";
 
-@Entity('foo_photo')
+@Entity("foo_photo")
 export class FooPhoto {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ name: 'foo_id' })
-    fooId: number;
+  // 참조 키는 정수형으로 명시
+  @Column({ name: "foo_id", type: "int" })
+  fooId: number;
 
-    @Column({ name: 'file_path', length: 500 })
-    filePath: string;
+  @Column({ name: "file_path", length: 500 })
+  filePath: string;
 
-    @ManyToOne(() => Foo, (foo) => foo.photos, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'foo_id' })
-    foo: Foo;
+  @ManyToOne(() => Foo, (foo) => foo.photos, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "foo_id" })
+  foo: Foo;
 }
