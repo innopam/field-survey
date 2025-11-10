@@ -67,7 +67,7 @@ export class FooService {
       clsfNm: farmMap.clsfNm,
       stdgAddr: farmMap.stdgAddr,
       area: farmMap.area,
-      geom: farmMaps.raw[index].geojson,
+      geom: JSON.parse(farmMaps.raw[index].geojson),
       hasFoo: farmMaps.raw[index].hasFoo,
     }));
   }

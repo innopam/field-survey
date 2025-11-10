@@ -33,8 +33,17 @@ export class FooController {
   @Get("farm-maps")
   async getFarmMapsByBbox(
     @Query(new ValidationPipe({ transform: true })) query: BboxQueryDto
-  ): Promise<FarmMapResponseDto[]> {
-    return this.fooService.getFarmMapsByBbox(query);
+  ): Promise<{
+    code: 200000;
+    result: {
+      farms: FarmMapResponseDto[];
+    };
+  }> {
+    const farms = await this.fooService.getFarmMapsByBbox(query);
+    return {
+      code: 200000,
+      result: { farms },
+    };
   }
 
   // 2. 필지별 FOO 데이터 저장 (이미지 업로드 포함)
