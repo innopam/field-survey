@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: field-survey-api
+    env_file:
+      - ./.env
+    environment:
+      # Override DB host/port to use service name in the network
+      DATABASE_HOST: host.docker.internal
+      DATABASE_PORT: 15432
+      NODE_ENV: production
+      PORT: 3000
+    ports:
+      - "3023:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
